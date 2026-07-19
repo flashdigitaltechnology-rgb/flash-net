@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash-Net - Internet Cepat Harga Hemat!</title>
+    <style>
+        /* --- ROOT & RESET COLOR PALETTE --- */
+        :root {
+            --blue-gradient: linear-gradient(135deg, #0e5cad 0%, #032b69 100%);
+            --orange-main: #f37021;
+            --orange-hover: #d65a12;
+            --blue-light: #e6f0fa;
+            --text-dark: #1e293b;
+            --text-light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden; /* Mencegah geser kanan-kiri global */
+            background-color: #f8fafc;
+            color: var(--text-dark);
+        }
+
+        /* --- NAVIGATION BAR --- */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0c5aa6;
+            font-style: italic;
+        }
+
+        .logo span {
+            color: var(--orange-main);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0c5aa6;
+        }
+
+        /* --- HERO / BERANDA SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(3, 27, 64, 0.05), rgba(3, 27, 64, 0.1)), url('beranda_6.jpg');
+            background-position: center top;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: var(--text-light);
+            min-height: 580px; 
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-clickable-area {
+            margin-top: 190px; 
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-btn-overlay {
+            display: inline-block;
+            height: 48px;
+            cursor: pointer;
+            text-decoration: none;
+            background: transparent;
+        }
+
+        .btn-daftar-overlay { width: 180px; }
+        .btn-paket-overlay { width: 140px; }
+
+        .hero-hidden-accessible {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* --- GLOBAL SECTION STYLES --- */
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #032b69;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+
+        /* --- JANGKAUAN INTERNET SECTION --- */
+        .coverage-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px 40px 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .map-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            border: 4px solid white;
+        }
+
+        .map-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- PAKET BERLANGGANAN --- */
+        .plans-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .grid-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 6px solid #0c5aa6;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .plan-card:nth-child(even) {
+            border-top-color: var(--orange-main);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .plan-card h3 {
+            font-size: 28px;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .plan-card .speed-unit {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .plan-card .price-tag {
+            background-color: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #032b69;
+            margin-bottom: 25px;
+        }
+        
+        .plan-card .price-tag span {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: normal;
+        }
+
+        /* --- DAFTAR FORM SECTION --- */
+        .register-section {
+            background-color: #f1f5f9;
+            padding: 80px 20px;
+            width: 100%;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #0c5aa6;
+            box-shadow: 0 0 0 3px rgba(12, 90, 166, 0.15);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-submit:hover {
+            background-color: #15803d;
+        }
+
+        /* --- KEMITRAAN --- */
+        .kemitraan-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            width: 100%;
+        }
+
+        .kemitraan-box {
+            background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
+            border-left: 6px solid var(--orange-main);
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            width: 100%;
+        }
+
+        .kemitraan-box h2 {
+            color: #032b69;
+            margin-bottom: 15px;
+            font-size: 26px;
+        }
+
+        .kemitraan-box p {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 18px 22px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            flex: 1;
+            min-width: 260px;
+            transition: border-color 0.3s;
+        }
+        
+        .contact-card:hover {
+            border-color: var(--orange-main);
+        }
+
+        .contact-card strong {
+            color: #0c5aa6;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-card a {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 14px;
+            border-top: 1px solid #1e293b;
+            width: 100%;
+        }
+
+        /* --- RESPONSIVE LAYOUT (ANTI OVERFLOW) --- */
+        @media(max-width: 992px) {
+            .hero { min-height: 480px; }
+            .hero-clickable-area { margin-top: 140px; }
+        }
+
+        @media(max-width: 768px) {
+            .hero { min-height: 380px; }
+            .hero-clickable-area { margin-top: 90px; }
+            .section-title { font-size: 26px; }
+            .form-container { padding: 30px 20px; }
+            .kemitraan-box { padding: 30px 20px; }
+        }
+        
+        @media(max-width: 480px) {
+            .hero { min-height: 220px; }
+            .hero-clickable-area { margin-top: 50px; }
+            .hero-btn-overlay { height: 30px; }
+            .btn-daftar-overlay { width: 100px; }
+            .btn-paket-overlay { width: 75px; }
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 10px;
+            }
+            .nav-links {
+                gap: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="navbar">
+            <div class="logo">Flash-<span>Net</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#plans">Paket</a></li>
+                <li><a href="#register">Daftar</a></li>
+                <li><a href="#kemitraan">Kemitraan</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- BERANDA / HERO SECTION -->
+    <section id="home" class="hero">
+        <body>
+            <img src="beranda.jpg"
+        </body>
+    </section>
+
+    <!-- PILIHAN PAKET / PRICELIST -->
+    <section id="plans" class="plans-section">
+        <h2 class="section-title">Pricelist Paket Internet</h2>
+        <p class="section-subtitle">Pilih kecepatan optimal bebas batas kuota (Unlimited) untuk aktivitas harian Anda</p>
+        <div class="grid-plans">
+            <div class="plan-card">
+                <div>
+                    <h3>10 Mbps</h3>
+                    <div class="speed-unit">Unlimited Broadband</div>
+                    <div class="price-tag">Rp 135.000 <span>/ bulan</span></div>
+                </div>
+                <a href="#register" class="btn-submit" style="background-color: var(--orange-main);" onclick="pilihPaket('10 Mbps')">Pilih Paket</a>
+            </div>
+            <div class="plan-card">
+                <div>
+                    <h3>15 Mbps</h3>
+                    <div class="speed-unit">Unlimited Broadband</div>
+                    <div class="price-tag">Rp 165.000 <span>/ bulan</span></div>
+                </div>
+                <a href="#register" class="btn-submit" style="background-color: var(--orange-main);" onclick="pilihPaket('15 Mbps')">Pilih Paket</a>
+            </div>
+            <div class="plan-card">
+                <div>
+                    <h3>20 Mbps</h3>
+                    <div class="speed-unit">Unlimited Broadband</div>
+                    <div class="price-tag">Rp 195.000 <span>/ bulan</span></div>
+                </div>
+                <a href="#register" class="btn-submit" style="background-color: var(--orange-main);" onclick="pilihPaket('20 Mbps')">Pilih Paket</a>
+            </div>
+            <div class="plan-card">
+                <div>
+                    <h3>25 Mbps</h3>
+                    <div class="speed-unit">Unlimited Broadband</div>
+                    <div class="price-tag">Rp 225.000 <span>/ bulan</span></div>
+                </div>
+                <a href="#register" class="btn-submit" style="background-color: var(--orange-main);" onclick="pilihPaket('25 Mbps')">Pilih Paket</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULIR PENDAFTARAN -->
+    <section id="register" class="register-section">
+        <div class="form-container">
+            <h2 style="text-align: center; margin-bottom: 10px; color:#032b69; font-weight: 800; text-transform: uppercase;">Form Registrasi</h2>
+            <p style="text-align: center; color: #64748b; margin-bottom: 30px; font-size: 14px;">Isi data valid di bawah ini untuk pengajuan pemasangan baru</p>
+            
+            <form onsubmit="kirimNotifikasi(event)">
+                <div class="form-group">
+                    <label for="nama">Nama:</label>
+                    <input type="text" id="nama" required placeholder="Masukkan nama lengkap Anda">
+                </div>
+
+                <div class="form-group">
+                    <label for="nik">NIK (Nomor Induk Kependudukan):</label>
+                    <input type="text" id="nik" required pattern="[0-9]{16}" title="NIK harus berjumlah 16 digit angka" placeholder="Masukkan 16 digit NIK KTP Anda">
+                </div>
+
+                <div class="form-group">
+                    <label for="whatsapp">Telpon:</label>
+                    <input type="tel" id="whatsapp" required placeholder="Contoh: 0812xxxxxxxx">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required placeholder="Contoh: nama@gmail.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="paket">Pilihan Paket Internet:</label>
+                    <select id="paket" required>
+                        <option value="">-- Pilih Kecepatan Paket --</option>
+                        <option value="10 Mbps">10 Mbps - Rp 135.000 / bulan</option>
+                        <option value="15 Mbps">15 Mbps - Rp 165.000 / bulan</option>
+                        <option value="20 Mbps">20 Mbps - Rp 195.000 / bulan</option>
+                        <option value="25 Mbps">25 Mbps - Rp 225.000 / bulan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="alamat">Alamat:</label>
+                    <textarea id="alamat" rows="3" required placeholder="Tuliskan alamat lengkap penempatan lokasi perangkat"></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Kirim Pendaftaran via WhatsApp</button>
+                <p style="text-align: center; margin: 12px 0; font-size: 12px; color: #64748b; font-weight: bold;">ATAU</p>
+                <button type="button" onclick="kirimEmail()" class="btn-submit" style="background-color: #0284c7;">Kirim Pendaftaran via Email</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- INFORMASI KEMITRAAN -->
+    <section id="kemitraan" class="kemitraan-section">
+        <div class="kemitraan-box">
+            <h2>Ingin memiliki usaha Seperti Ini di wilayah Anda?</h2>
+            <p>Flash-Net membuka kesempatan kolaborasi bagi Anda yang ingin menjadi mitra lokal penyedia internet. Kami memberikan solusi manajemen bisnis, legalitas, serta suplai infrastruktur jaringan terpadu untuk membangun ekosistem digital mandiri di wilayah Anda. Hubungi kami langsung untuk konsultasi investasi.</p>
+            
+            <div class="contact-info">
+                <div class="contact-card">
+                    <strong>Hubungi Kontak WA:</strong>
+                    <a href="https://wa.me/6285772934590?text=Halo%20Flash-Net%2C%20saya%20tertarik%20mengenai%20kemitraan%20usaha%20internet%20di%20wilayah%20saya." target="_blank">0857-7293-4590</a>
+                </div>
+                <div class="contact-card">
+                    <strong>Hubungi Kontak Email:</strong>
+                    <a href="mailto:flashdigitaltechnology@gmail.com?subject=Pengajuan%20Kemitraan%20Usaha%20Flash-Net">flashdigitaltechnology@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Flash-Net Digital Technology. Seluruh Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        function pilihPaket(namaPaket) {
+            document.getElementById('paket').value = namaPaket;
+        }
+
+        function kirimNotifikasi(event) {
+            event.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const nik = document.getElementById('nik').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const email = document.getElementById('email').value;
+            const paket = document.getElementById('paket').value;
+            const alamat = document.getElementById('alamat').value;
+
+            const noTujuan = "6285772934590";
+
+            const teksPesan = `Halo Flash-Net, saya ingin mengajukan pendaftaran pasang baru.%0A%0A` +
+                              `*Nama:* ${nama}%0A` +
+                              `*NIK:* ${nik}%0A` +
+                              `*Telpon:* ${whatsapp}%0A` +
+                              `*Email:* ${email}%0A` +
+                              `*Pilihan Paket Internet:* ${paket}%0A` +
+                              `*Alamat:* ${alamat}`;
+
+            window.open(`https://wa.me/${noTujuan}?text=${teksPesan}`, '_blank');
+        }
+
+        function kirimEmail() {
+            const nama = document.getElementById('nama').value;
+            const nik = document.getElementById('nik').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const emailUser = document.getElementById('email').value;
+            const paket = document.getElementById('paket').value;
+            const alamat = document.getElementById('alamat').value;
+
+            if(!nama || !nik || !whatsapp || !emailUser || !paket || !alamat){
+                alert("Silakan lengkapi seluruh formulir registrasi sebelum mengirim via email.");
+                return;
+            }
+
+            const emailTujuan = "flashdigitaltechnology@gmail.com";
+            const subjek = "Registrasi Pelanggan Baru Flash-Net - " + nama;
+            const isiEmail = `Form Pendaftaran Pelanggan Baru:\n\n` +
+                              `Nama: ${nama}\n` +
+                              `NIK: ${nik}\n` +
+                              `Telpon: ${whatsapp}\n` +
+                              `Email: ${emailUser}\n` +
+                              `Pilihan Paket Internet: ${paket}\n` +
+                              `Alamat: ${alamat}`;
+
+            window.location.href = `mailto:${emailTujuan}?subject=${encodeURIComponent(subjek)}&body=${encodeURIComponent(isiEmail)}`;
+        }
+    </script>
+</body>
+</html>
